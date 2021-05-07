@@ -1,0 +1,74 @@
+extends layout
+
+block content
+  div(style="float:left;margin-top: 5px;margin-right: 100px")
+    img(src="https://res.cloudinary.com/dbmataac4/image/upload/f_auto,q_auto/subhashitaani/logo.png" width="243" height="57" alt="logo")          
+  div(style="margin-top: 5px;")
+    h1= title
+  hr
+  div(class="container")
+      div(class="row")
+        div(class="twelve columns")                       
+          p Welcome to site. Here, you can create your own सुभाषितम् to share with friends and family in 3 easy steps: 
+          ol             
+            li Select a background 
+            li Choose a theme 
+            li SHARE!
+          p That's it! We'll create a shareable सुभाषितम् that you can use as a greeting or a meme for forwarding.
+        
+        div(class="row")
+          div(class="twelve columns")
+            h4 Today's सुभाषितम्
+            p उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः| 
+            p न हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः||
+        div(class="row")
+          div(class="twelve columns")                       
+            h4 Choose a background
+        div(class="row")
+          div(class="three columns")
+            img(class="background" src="https://res.cloudinary.com/dbmataac4/image/upload/t_select,f_auto,q_auto/subhashitaani/pexels-photo-3560168.jpg", width="250", height="250")
+          div(class="three columns")
+            img(class="background"  src="https://res.cloudinary.com/dbmataac4/image/upload/t_select,f_auto,q_auto/subhashitaani/pexels-photo-3394939.jpg", width="250", height="250")
+          div(class="three columns")
+            img(class="background"  src="https://res.cloudinary.com/dbmataac4/image/upload/t_select,f_auto,q_auto/subhashitaani/pexels-photo-2748716.jpg", width="250", height="250")
+          div(class="three columns")
+            img(class="background" src="https://res.cloudinary.com/dbmataac4/image/upload/t_select,f_auto,q_auto/subhashitaani/sky-space-dark-galaxy.jpg", width="250", height="250")
+
+        div(class="row")
+          div(class="twelve columns")                       
+            h4 Choose a theme 
+        div(class="row")
+          div(class="three columns")
+            label Black
+          div(class="three columns")
+            label Yellow
+          div(class="three columns")
+            label Green
+          div(class="three columns")
+            label Blue
+        div(class="row")
+          div(class="twelve columns")
+            p(class="subhashitam")
+        
+        div(class="row")
+          div(class="twelve columns")
+            p Generate Transform now! 
+            button(name="Generate" id="generate") Generate
+        div(class="row" id="preview" style="display:none")
+          div(class="three columns" id="preview0")            
+          div(class="three columns" id="preview1")            
+          div(class="three columns" id="preview2")
+          div(class="three columns" id="preview3")
+        div(class="row" id="links" style="display:none")
+  
+  script(type="text/javascript").
+
+    document.getElementById('generate').addEventListener("click", function() {
+      generateImageOverlay()
+    })
+      
+        
+
+          
+
+
