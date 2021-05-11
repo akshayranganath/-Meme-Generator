@@ -26,15 +26,7 @@ function generateImageOverlay (publicId, message) {
     const ahref = document.createElement('a')
     ahref.href = url
     ahref.text = 'Link'
-
-    const para = document.createElement('p')
-    para.appendChild(ahref)
-
-    const div = document.createElement('div')
-    div.className = 'three columns'
-    div.appendChild(para)
-
-    linkParent.appendChild(div)
+    element.appendChild(ahref)
   }
 
   // finall display the div
