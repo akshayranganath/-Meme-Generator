@@ -1,5 +1,5 @@
 function generateImageOverlay (publicId, message) {
-  publicId = 'subhashitaani/sky-space-dark-galaxy'
+  publicId = publicId || 'subhashitaani/sky-space-dark-galaxy'
   message = 'उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः|\nन हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः||'
   message = encodeURIComponent(message)
   const base = 'https://res.cloudinary.com/dbmataac4/image/upload/w_1024,h_768/'
@@ -20,6 +20,12 @@ function generateImageOverlay (publicId, message) {
     image.src = url
     image.width = '250'
     image.height = '250'
+    
+    while (element.firstChild) {
+      console.log('.')
+      element.removeChild(element.lastChild);
+    }
+
     element.appendChild(image)
 
     // create a <a href>

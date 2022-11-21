@@ -1,0 +1,148 @@
+extends layout
+
+block content
+  script(src="https://media-editor.cloudinary.com/all.js")
+  div(style="float:left;margin-top: 5px;margin-right: 100px")
+    img(src="https://res.cloudinary.com/dbmataac4/image/upload/f_auto,q_auto/subhashitaani/logo.png" width="243" height="57" alt="logo")          
+  div(style="margin-top: 5px;")
+    h1= title
+  hr
+  div(class="container")
+    div(class="row")
+      div(class="twelve columns")                       
+        p Welcome to site. Here, you can create your own सुभाषितम् to share with friends and family in 3 easy steps: 
+        ol             
+          li Select the layout
+          li Choose font and align text
+          li SHARE!
+        p That's it! We'll create a shareable सुभाषितम् that you can use as a greeting or a meme for forwarding.
+
+    div(class="row")
+        div(class="twelve columns")
+          h4 Today's सुभाषितम्
+          p उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः| 
+          p न हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः||
+    div(class="row")
+        div(class="twelve columns")                       
+          button(name="Edit" id="edit") Create Image
+    div(class="row")
+        div(class="twelve columns")
+            p(id="result")
+
+  script(type="text/javascript").
+    var myEditor
+
+    window.addEventListener('load', function() {
+        myEditor = cloudinary.mediaEditor(); 
+        myEditor.update({
+            publicIds: [ "subhashitaani/sky-space-dark-galaxy"],
+            cloudName: "dbmataac4",
+            image: {
+                steps: [     
+                "resizeAndCrop",                
+                "textOverlays",
+                "export"
+                ],
+            textOverlays: {
+                fonts: [
+                    "Georgia",
+                    "Roboto",
+                    "Arial",
+                    "Montserrat",
+                    {
+                        font: "Mukta",
+                        styles: {
+                            regular: "subhashitaani/fonts/Mukta-Regular.ttf",
+                            bold: "subhashitaani/fonts/Mukta-Bold.ttf",
+                            italic: "subhashitaani/fonts/Mukta-Light.ttf",
+                            boldItalic: "subhashitaani/fonts/Mukta-ExtraLight.ttf",
+                            underline: true
+                        }
+                    }
+                ],
+                presets: [
+                    "heading",
+                    "body",                
+                    {
+                        label: "उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः|",
+                        previewText: "ln1",
+                        size: 170,
+                        font: "Mukta", // requires the MyFont font to be defined in the fonts property
+                        weight: "normal",                                                                       
+                    },
+                    {
+                        label: "न हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः||",
+                        previewText: "ln2",
+                        size: 170,
+                        font: "Mukta" ,
+                        weight: "normal"            
+                    },
+                    {
+                        label: "जन्मदिनस्य शुभाशयाः||",
+                        previewText: "mg1",
+                        size: 150,
+                        font: "Mukta",
+                        weight: "bold",
+                        color: "#ffffff"
+                    }            
+                ]                    
+            }, 
+            export: {
+                formats: [
+                    "jpg",
+                    "png",
+                    "webp"                    
+                ],
+                quality: [
+                    "auto",
+                    80,
+                    90,
+                    60
+                ],
+                download: true,
+                share: true
+            }          
+            }
+        });
+
+        myEditor.onSign(function (data) {
+        return new Promise(function (resolve) {
+            if (data.publicId === "subhashitaani/fonts/Mukta-Regular.ttf") {
+                    resolve({
+                        url: "https://res.cloudinary.com/dbmataac4/raw/authenticated/s--UreBiGWr--/v1667858457/subhashitaani/fonts/Mukta-Regular.ttf"
+                    })
+                } else if (data.publicId === "subhashitaani/fonts/Mukta-Bold.ttf") {
+                    resolve({
+                        url: "https://res.cloudinary.com/dbmataac4/raw/authenticated/s--d-aT1lAE--/v1667858457/subhashitaani/fonts/Mukta-Bold.ttf"
+                    })
+                } else if (data.publicId === "subhashitaani/fonts/Mukta-Light.ttf") {
+                    resolve({
+                        url: "https://res.cloudinary.com/dbmataac4/raw/authenticated/s--NXZCoZvU--/v1667858458/subhashitaani/fonts/Mukta-Light.ttf"
+                    })
+                } else if (data.publicId === "subhashitaani/fonts/Mukta-ExtraLight.ttf") {
+                    resolve({
+                        url: "https://res.cloudinary.com/dbmataac4/raw/authenticated/s--598NvUxt--/v1667858457/subhashitaani/fonts/Mukta-ExtraLight.ttf"
+                    })
+                }else {
+                    resolve({})
+
+                }
+
+        })
+    })
+
+    myEditor.on("export", function (data){
+        const para = document.getElementById('result')
+        para.textContent = `Thank you for choosing us to creating your Samskrutam greeting. Here is your image URL once again: ${data.assets[0].secureUrl}.`
+    })
+
+    });
+
+    document.getElementById('edit').addEventListener('click', function() {
+        myEditor.show();
+            myEditor.on("export",function(data){
+            console.log(data);
+        })
+    })
+
+    
