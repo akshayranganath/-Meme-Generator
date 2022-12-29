@@ -1,0 +1,103 @@
+extends layout
+
+block content
+  script(src="https://media-editor.cloudinary.com/all.js")
+  div(style="float:left;margin-top: 5px;margin-right: 100px")
+    img(src="https://res.cloudinary.com/dbmataac4/image/upload/f_auto,q_auto/subhashitaani/logo.png" width="243" height="57" alt="logo")          
+  div(style="margin-top: 5px;")
+    h1= title
+  hr
+  div(class="container")
+    div(class="row")
+      div(class="twelve columns")                       
+        p Welcome to site. Here, you can create your own सुभाषितम् to share with friends and family in 3 easy steps: 
+        ol             
+          li Select the layout
+          li Choose font and align text
+          li SHARE!
+        p That's it! We'll create a shareable सुभाषितम् that you can use as a greeting or a meme for forwarding.
+    
+
+    div(class="row")
+        div(class="twelve columns")                       
+          button(name="Generate" id="generate") Generate Image
+    
+    div(class="row")
+        div(class="twelve columns")
+          <h3>SubhashitaM</h3>
+          div(id='quote')
+    div(class="row")
+        <h3>Sahaja ArthaM</h3>
+        div(class="twelve columns")
+          div(id='meaning')
+    div(class="row")
+        div(class="twelve columns")
+          div(id='image')
+    
+    div(class="row")
+        div(class="twelve columns")                       
+          button(name="Create" id="create") Create Card
+    
+    div(class="row" id="preview" style="display:none")
+        div(class="three columns" id="preview0")            
+        div(class="three columns" id="preview1")            
+        div(class="three columns" id="preview2")
+        div(class="three columns" id="preview3")
+    
+    div(class="row" id="links" style="display:none") 
+
+    div(class="row")
+        div(class="twelve columns")
+            p(id="result")
+    script(type="text/javascript").
+        
+        var keywords = null 
+        var imageUrl = null
+        function loadData(){
+            fetch('./data/data.json')
+            .then(resp => {
+                if (!resp.ok) {
+                   throw new Error(`HTTP error, status = ${response.status}`);
+                }
+                return resp.json()})
+            .then(data => {
+                // print quote
+                const q = document.getElementById('quote')
+                q.innerHTML = data.quotes[0].quote.replace('\| ','\|<br/>')
+                // print meaning
+                const m = document.getElementById('meaning')
+                m.textContent = data.quotes[0].meaning
+                // get a generated image
+                keywords = data.quotes[0].keywords                
+            })
+        }
+        loadData()
+
+        document.getElementById('generate').addEventListener("click", function() {
+            getImage(keywords)
+        })
+
+        function getImage(textPrompt){
+            const url = `./getImage?keyword=${textPrompt}`
+            
+            fetch(
+                url            
+            )
+            .then(resp => {
+                if(!resp.ok) {
+                throw new Error(`HTTP error, status = ${response.status}`);
+                }
+                return resp.json()
+            })
+            .then(data => {
+                imageUrl = data[0].url || 'sample'
+                const img = document.createElement('img')
+                img.src = imageUrl
+                const div = document.getElementById('image')
+                div.appendChild(img)
+            })
+            }
+        
+        document.getElementById('create').addEventListener("click", function() {
+            generateImageOverlay(imageUrl)
+        })
