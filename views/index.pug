@@ -19,8 +19,13 @@ block content
       div(class="row")
         div(class="twelve columns")
           h4 Today's सुभाषितम्
-          p उद्यमेन हि सिध्यन्ति कार्याणि न मनोरथैः| 
-          p न हि सुप्तस्य सिंहस्य प्रविशन्ति मुखे मृगाः||
+          div(id='quote')
+          br()
+      div(class="row")
+        div(class="twelve columns")
+          h4 सरलम् अर्थम् / Simple Meaning
+          div(id='meaning')
+          br()          
       div(class="row")
         div(class="twelve columns")                       
           h4 Choose a background
@@ -63,7 +68,11 @@ block content
 
   script(type="text/javascript").
 
+    // load the quote at onload
+    var quote = null 
     var publicId = null 
+
+    window.addEventListener('load', loadQuotes) 
 
     function setImage(selectedPublicId, element){
       // clear image highlight
@@ -75,12 +84,25 @@ block content
       publicId =  selectedPublicId
       element.style="border:5px groove gold;"
     }
-    document.getElementById('generate').addEventListener("click", function() {
-      generateImageOverlay(publicId)
+    document.getElementById('generate').addEventListener("click", function() {      
+      generateImageOverlay(publicId, quote.quote)
     })
 
+    function loadQuotes() {
+      fetch('./data/q.json')
+        .then(resp => {
+          if (!resp.ok) {
+            throw new Error(`HTTP error, status = ${response.status}`);
+          }
+          return resp.json()})
+        .then(data => {
+          // first generate a random number and then pick a quote
+          const index = Math.floor(Math.random() * data.quotes.length);        
 
-
-
-
-
+          const q = document.getElementById('quote')
+          q.innerHTML = data.quotes[index].quote.replace('।','।<br/>')        
+          const m = document.getElementById('meaning')
+          m.textContent = data.quotes[index].meaning
+          quote =  data.quotes[index]
+        })  
+      }

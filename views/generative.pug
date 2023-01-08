@@ -54,7 +54,8 @@ block content
         var keywords = null 
         var imageUrl = null
         function loadData(){
-            fetch('./data/data.json')
+            //fetch('./data/data.json')
+            fetch('./data/q.json')
             .then(resp => {
                 if (!resp.ok) {
                    throw new Error(`HTTP error, status = ${response.status}`);
